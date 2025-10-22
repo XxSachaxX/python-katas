@@ -50,9 +50,9 @@ class Biller():
         for i in range(max_number_of_books):
             number_of_books_for_round = 0
 
-            for key, value in books_counts.items():
-                if value > 0:
-                    books_counts[key] -= 1
+            for book, count in books_counts.items():
+                if count > 0:
+                    books_counts[book] -= 1
                     number_of_books_for_round += 1
 
 
