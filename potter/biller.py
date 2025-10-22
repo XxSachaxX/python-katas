@@ -24,13 +24,15 @@ class Biller():
         return total
 
     def _get_books_counts(self):
-        return {
-            FIRST_BOOK: self.list_of_books.count(FIRST_BOOK),
-            SECOND_BOOK: self.list_of_books.count(SECOND_BOOK),
-            THIRD_BOOK: self.list_of_books.count(THIRD_BOOK),
-            FOURTH_BOOK: self.list_of_books.count(FOURTH_BOOK),
-            FIFTH_BOOK: self.list_of_books.count(FIFTH_BOOK)
-        }
+        books_counts = {}
+
+        for book in self.all_books():
+            books_counts[book] = self.list_of_books.count(book)
+
+        return books_counts
+
+    def all_books(self):
+        return [FIRST_BOOK,SECOND_BOOK,THIRD_BOOK,FOURTH_BOOK,FIFTH_BOOK]
 
     def _get_books_counts_by_discount_multiplier(self):
         books_counts = self._get_books_counts()
