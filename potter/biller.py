@@ -18,8 +18,8 @@ class Biller():
         books_counts_by_discount_multiplier = self.__get_books_counts_by_discount_multiplier()
 
         total = 0
-        for key, value in books_counts_by_discount_multiplier.items():
-            total += (self.base_amount_per_book * value) * key
+        for rate, nb_of_books in books_counts_by_discount_multiplier.items():
+            total += (self.base_amount_per_book * nb_of_books) * rate
 
         return total
 
