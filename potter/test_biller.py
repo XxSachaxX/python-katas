@@ -85,13 +85,7 @@ def test_get_books_counts():
     assert result == expected, f"Expected: {expected} but got: {result}"
 
 def test_books_counts_by_discount_multiplier_with_five_copies_of_one_book():
-    books_counts = {
-        FIRST_BOOK: 5,
-        SECOND_BOOK: 0,
-        THIRD_BOOK: 0,
-        FOURTH_BOOK: 0,
-        FIFTH_BOOK: 0
-    }
+    list_of_books = [FIRST_BOOK,FIRST_BOOK,FIRST_BOOK,FIRST_BOOK, FIRST_BOOK]
 
     expected = {
     STANDARD_RATE: 5,
@@ -101,18 +95,12 @@ def test_books_counts_by_discount_multiplier_with_five_copies_of_one_book():
     FIVE_DIFFERENT_BOOKS_DISCOUNT_MULTIPLIER: 0
     }
 
-    result = get_books_counts_by_discount_multiplier(books_counts)
+    result = get_books_counts_by_discount_multiplier(list_of_books)
 
     assert result == expected, f"Expected: {expected} but got: {result}"
 
 def test_books_counts_by_discount_multiplier_with_one_copy_of_two_books():
-    books_counts = {
-        FIRST_BOOK: 1,
-        SECOND_BOOK: 0,
-        THIRD_BOOK: 0,
-        FOURTH_BOOK: 0,
-        FIFTH_BOOK: 1
-    }
+    list_of_books = [FIRST_BOOK,FIFTH_BOOK]
 
     expected = {
     STANDARD_RATE: 0,
@@ -122,6 +110,6 @@ def test_books_counts_by_discount_multiplier_with_one_copy_of_two_books():
     FIVE_DIFFERENT_BOOKS_DISCOUNT_MULTIPLIER: 0
     }
 
-    result = get_books_counts_by_discount_multiplier(books_counts)
+    result = get_books_counts_by_discount_multiplier(list_of_books)
 
     assert result == expected, f"Expected: {expected} but got: {result}"

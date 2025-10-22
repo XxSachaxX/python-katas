@@ -7,8 +7,7 @@ from constants import (
     STANDARD_RATE, FIVE_DIFFERENT_BOOKS_DISCOUNT_MULTIPLIER)
 
 def bill(list_of_books):
-    books_counts = get_books_counts(list_of_books)
-    books_counts_by_discount_multiplier = get_books_counts_by_discount_multiplier(books_counts)
+    books_counts_by_discount_multiplier = get_books_counts_by_discount_multiplier(list_of_books)
 
     total = 0
     for key, value in books_counts_by_discount_multiplier.items():
@@ -25,7 +24,9 @@ def get_books_counts(list_of_books):
         FIFTH_BOOK: list_of_books.count(FIFTH_BOOK)
     }
 
-def get_books_counts_by_discount_multiplier(books_counts):
+def get_books_counts_by_discount_multiplier(list_of_books):
+    books_counts = get_books_counts(list_of_books)
+
     rates = {
     STANDARD_RATE: 0,
     TWO_DIFFERENT_BOOKS_DISCOUNT_MULTIPLIER: 0,
