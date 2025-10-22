@@ -7,12 +7,12 @@ from constants import (
 class Biller():
     def __init__(self, list_of_books, biller_configuration):
         self.list_of_books = list_of_books
-        self.base_amount_per_book = biller_configuration.base_amount_per_book(self)
-        self.standard_rate = biller_configuration.standard_rate(self)
-        self.two_books_discount_multiplier = biller_configuration.two_books_discount_multiplier(self)
-        self.three_books_discount_multiplier = biller_configuration.three_books_discount_multiplier(self)
-        self.four_books_discount_multiplier = biller_configuration.four_books_discount_multiplier(self)
-        self.five_books_discount_multiplier = biller_configuration.five_books_discount_multiplier(self)
+        self.base_amount_per_book = biller_configuration.base_amount_per_book()
+        self.standard_rate = biller_configuration.standard_rate()
+        self.two_books_discount_multiplier = biller_configuration.two_books_discount_multiplier()
+        self.three_books_discount_multiplier = biller_configuration.three_books_discount_multiplier()
+        self.four_books_discount_multiplier = biller_configuration.four_books_discount_multiplier()
+        self.five_books_discount_multiplier = biller_configuration.five_books_discount_multiplier()
 
     def bill(self):
         books_counts_by_discount_multiplier = self._get_books_counts_by_discount_multiplier()
