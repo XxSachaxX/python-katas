@@ -7,14 +7,19 @@ from constants import (
 class Biller():
     def __init__(self, list_of_books, biller_configuration):
         self.list_of_books = list_of_books
-        self.biller_configuration = biller_configuration
+        self.base_amount_per_book = biller_configuration.base_amount_per_book(self)
+        self.standard_rate = biller_configuration.standard_rate(self)
+        self.two_books_discount_multiplier = biller_configuration.two_books_discount_multiplier(self)
+        self.three_books_discount_multiplier = biller_configuration.three_books_discount_multiplier(self)
+        self.four_books_discount_multiplier = biller_configuration.four_books_discount_multiplier(self)
+        self.five_books_discount_multiplier = biller_configuration.five_books_discount_multiplier(self)
 
     def bill(self):
         books_counts_by_discount_multiplier = self.get_books_counts_by_discount_multiplier()
 
         total = 0
         for key, value in books_counts_by_discount_multiplier.items():
-            total += (self.biller_configuration.base_amount_per_book(self) * value) * key
+            total += (self.base_amount_per_book * value) * key
 
         return total
 
@@ -31,11 +36,11 @@ class Biller():
         books_counts = self.get_books_counts()
 
         rates = {
-        self.biller_configuration.standard_rate(self): 0,
-        self.biller_configuration.two_books_discount_multiplier(self): 0,
-        self.biller_configuration.three_books_discount_multiplier(self): 0,
-        self.biller_configuration.four_books_discount_multiplier(self): 0,
-        self.biller_configuration.five_books_discount_multiplier(self): 0
+        self.standard_rate: 0,
+        self.two_books_discount_multiplier: 0,
+        self.three_books_discount_multiplier: 0,
+        self.four_books_discount_multiplier: 0,
+        self.five_books_discount_multiplier: 0
         }
 
         max_number_of_books = max(list(books_counts.values()))
@@ -49,14 +54,14 @@ class Biller():
                     number_of_books_for_round += 1
 
             if number_of_books_for_round == 5:
-                rates[self.biller_configuration.five_books_discount_multiplier(self)] += 5
+                rates[self.five_books_discount_multiplier] += 5
             elif number_of_books_for_round == 4:
-                rates[self.biller_configuration.four_books_discount_multiplier(self)] += 4
+                rates[self.four_books_discount_multiplier] += 4
             elif number_of_books_for_round == 3:
-                rates[self.biller_configuration.three_books_discount_multiplier(self)] += 3
+                rates[self.three_books_discount_multiplier] += 3
             elif number_of_books_for_round == 2:
-                rates[self.biller_configuration.two_books_discount_multiplier(self)] += 2
+                rates[self.two_books_discount_multiplier] += 2
             elif number_of_books_for_round == 1:
-                rates[self.biller_configuration.standard_rate(self)] += 1
+                rates[self.standard_rate] += 1
 
         return rates
