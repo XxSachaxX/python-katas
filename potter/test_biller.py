@@ -82,7 +82,7 @@ def test_ultimate():
 
 def test_get_books_counts():
     biller = Biller([FIRST_BOOK, FIRST_BOOK, SECOND_BOOK, THIRD_BOOK, FOURTH_BOOK, FOURTH_BOOK], DefaultBillerConfiguration)
-    result = biller.get_books_counts()
+    result = biller._get_books_counts()
     expected = {
         FIRST_BOOK: 2,
         SECOND_BOOK: 1,
@@ -105,7 +105,7 @@ def test_books_counts_by_discount_multiplier_with_five_copies_of_one_book():
     FIVE_DIFFERENT_BOOKS_DISCOUNT_MULTIPLIER: 0
     }
 
-    result = biller.get_books_counts_by_discount_multiplier()
+    result = biller._get_books_counts_by_discount_multiplier()
 
     assert result == expected, f"Expected: {expected} but got: {result}"
 
@@ -121,6 +121,6 @@ def test_books_counts_by_discount_multiplier_with_one_copy_of_two_books():
     FIVE_DIFFERENT_BOOKS_DISCOUNT_MULTIPLIER: 0
     }
 
-    result = biller.get_books_counts_by_discount_multiplier()
+    result = biller._get_books_counts_by_discount_multiplier()
 
     assert result == expected, f"Expected: {expected} but got: {result}"

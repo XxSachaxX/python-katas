@@ -15,7 +15,7 @@ class Biller():
         self.five_books_discount_multiplier = biller_configuration.five_books_discount_multiplier(self)
 
     def bill(self):
-        books_counts_by_discount_multiplier = self.get_books_counts_by_discount_multiplier()
+        books_counts_by_discount_multiplier = self._get_books_counts_by_discount_multiplier()
 
         total = 0
         for key, value in books_counts_by_discount_multiplier.items():
@@ -23,7 +23,7 @@ class Biller():
 
         return total
 
-    def get_books_counts(self):
+    def _get_books_counts(self):
         return {
             FIRST_BOOK: self.list_of_books.count(FIRST_BOOK),
             SECOND_BOOK: self.list_of_books.count(SECOND_BOOK),
@@ -32,8 +32,8 @@ class Biller():
             FIFTH_BOOK: self.list_of_books.count(FIFTH_BOOK)
         }
 
-    def get_books_counts_by_discount_multiplier(self):
-        books_counts = self.get_books_counts()
+    def _get_books_counts_by_discount_multiplier(self):
+        books_counts = self._get_books_counts()
 
         rates = {
         self.standard_rate: 0,
@@ -53,15 +53,19 @@ class Biller():
                     books_counts[key] -= 1
                     number_of_books_for_round += 1
 
-            if number_of_books_for_round == 5:
-                rates[self.five_books_discount_multiplier] += 5
-            elif number_of_books_for_round == 4:
-                rates[self.four_books_discount_multiplier] += 4
-            elif number_of_books_for_round == 3:
-                rates[self.three_books_discount_multiplier] += 3
-            elif number_of_books_for_round == 2:
-                rates[self.two_books_discount_multiplier] += 2
-            elif number_of_books_for_round == 1:
-                rates[self.standard_rate] += 1
+
+            rates_per_nb_of_books = self._get_rates_per_number_of_books()
+
+            rate = rates_per_nb_of_books[number_of_books_for_round]
+            rates[rate] += number_of_books_for_round
 
         return rates
+
+    def _get_rates_per_number_of_books(self):
+        return {
+            5: self.five_books_discount_multiplier,
+            4: self.four_books_discount_multiplier,
+            3: self.three_books_discount_multiplier,
+            2: self.two_books_discount_multiplier,
+            1: self.standard_rate
+        }
