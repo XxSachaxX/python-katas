@@ -1,6 +1,6 @@
 from biller import Biller
 from constants import (
-    BASE_AMOUNT_PER_BOOK, FIRST_BOOK,
+    FIRST_BOOK,
     SECOND_BOOK, THIRD_BOOK,
     FOURTH_BOOK, FIFTH_BOOK)
 from biller_configurations.default import DefaultBillerConfiguration
@@ -10,7 +10,7 @@ biller_configuration = DefaultBillerConfiguration()
 def test_with_a_single_book():
     biller = Biller([FIRST_BOOK], biller_configuration)
     result = biller.bill()
-    expected = BASE_AMOUNT_PER_BOOK
+    expected = biller_configuration.base_amount_per_book()
 
     assert result == expected, f"The amount due should be {expected} but is {result}"
 
