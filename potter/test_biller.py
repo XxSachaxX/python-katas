@@ -73,7 +73,7 @@ def test_with_four_identical_books():
 
     assert result == expected, f"The amount due should be {expected} but is {result}"
 
-def test_ultimate():
+def test_with_real_complete_basket():
     biller = Biller([FIRST_BOOK,FIRST_BOOK,SECOND_BOOK,SECOND_BOOK,THIRD_BOOK,THIRD_BOOK,FOURTH_BOOK,FIFTH_BOOK], DefaultBillerConfiguration)
     result = biller.bill()
     expected = 51.60
