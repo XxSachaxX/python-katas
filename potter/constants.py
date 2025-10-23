@@ -1,5 +1,0 @@
-FIRST_BOOK = "Harry Potter and the Sorcerer's Stone"
-SECOND_BOOK = "Harry Potter and the Chamber of Secrets"
-THIRD_BOOK = "Harry Potter and the Prisonner of Azkaban"
-FOURTH_BOOK = "Harry Potter and the Goblet of fire"
-FIFTH_BOOK = "Harry Potter and the Order of the Phoenix"

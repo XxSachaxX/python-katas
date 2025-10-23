@@ -1,12 +1,7 @@
-from constants import (
-    FIRST_BOOK, FOURTH_BOOK,
-    SECOND_BOOK, THIRD_BOOK,
-    FIFTH_BOOK
-)
-
 class Biller():
-    def __init__(self, list_of_books, biller_configuration):
+    def __init__(self, list_of_books, biller_configuration, books_series_configuration):
         self.list_of_books = list_of_books
+        self.__books_series = books_series_configuration.books()
         self.__base_amount_per_book = biller_configuration.base_amount_per_book()
         self.__standard_rate = biller_configuration.standard_rate()
         self.__two_books_discount_multiplier = biller_configuration.two_books_discount_multiplier()
@@ -33,7 +28,7 @@ class Biller():
         return books_counts
 
     def __all_books(self):
-        return [FIRST_BOOK,SECOND_BOOK,THIRD_BOOK,FOURTH_BOOK,FIFTH_BOOK]
+        return self.__books_series
 
     def __get_books_counts_by_discount_multiplier(self):
         books_counts = self.__get_books_counts()
