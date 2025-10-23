@@ -59,10 +59,10 @@ class Biller():
         return rates
 
     def __get_rates_per_number_of_books(self):
-        nb_of_books = len(self.__books_series) + 1
+        nb_of_books = len(self.__books_series)
         rates_per_number_of_books = {}
 
-        for i in range(nb_of_books):
+        for i in range(nb_of_books + 1):
             if i == 2:
                 rates_per_number_of_books[i] = self.__small_discount_multiplier
             elif i == 3:
