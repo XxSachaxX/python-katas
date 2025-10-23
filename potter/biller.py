@@ -7,19 +7,20 @@ from constants import (
 class Biller():
     def __init__(self, list_of_books, biller_configuration):
         self.list_of_books = list_of_books
-        self.base_amount_per_book = biller_configuration.base_amount_per_book()
-        self.standard_rate = biller_configuration.standard_rate()
-        self.two_books_discount_multiplier = biller_configuration.two_books_discount_multiplier()
-        self.three_books_discount_multiplier = biller_configuration.three_books_discount_multiplier()
-        self.four_books_discount_multiplier = biller_configuration.four_books_discount_multiplier()
-        self.five_books_discount_multiplier = biller_configuration.five_books_discount_multiplier()
+        self.__base_amount_per_book = biller_configuration.base_amount_per_book()
+        self.__standard_rate = biller_configuration.standard_rate()
+        self.__two_books_discount_multiplier = biller_configuration.two_books_discount_multiplier()
+        self.__three_books_discount_multiplier = biller_configuration.three_books_discount_multiplier()
+        self.__four_books_discount_multiplier = biller_configuration.four_books_discount_multiplier()
+        self.__five_books_discount_multiplier = biller_configuration.five_books_discount_multiplier()
+
 
     def bill(self):
         books_counts_by_discount_multiplier = self.__get_books_counts_by_discount_multiplier()
 
         total = 0
         for rate, nb_of_books in books_counts_by_discount_multiplier.items():
-            total += (self.base_amount_per_book * nb_of_books) * rate
+            total += (self.__base_amount_per_book * nb_of_books) * rate
 
         return total
 
@@ -38,11 +39,11 @@ class Biller():
         books_counts = self.__get_books_counts()
 
         rates = {
-        self.standard_rate: 0,
-        self.two_books_discount_multiplier: 0,
-        self.three_books_discount_multiplier: 0,
-        self.four_books_discount_multiplier: 0,
-        self.five_books_discount_multiplier: 0
+        self.__standard_rate: 0,
+        self.__two_books_discount_multiplier: 0,
+        self.__three_books_discount_multiplier: 0,
+        self.__four_books_discount_multiplier: 0,
+        self.__five_books_discount_multiplier: 0
         }
 
         max_number_of_books = max(list(books_counts.values()))
@@ -57,7 +58,6 @@ class Biller():
 
 
             rates_per_nb_of_books = self.__get_rates_per_number_of_books()
-
             rate = rates_per_nb_of_books[number_of_books_for_round]
             rates[rate] += number_of_books_for_round
 
@@ -65,9 +65,9 @@ class Biller():
 
     def __get_rates_per_number_of_books(self):
         return {
-            5: self.five_books_discount_multiplier,
-            4: self.four_books_discount_multiplier,
-            3: self.three_books_discount_multiplier,
-            2: self.two_books_discount_multiplier,
-            1: self.standard_rate
+            5: self.__five_books_discount_multiplier,
+            4: self.__four_books_discount_multiplier,
+            3: self.__three_books_discount_multiplier,
+            2: self.__two_books_discount_multiplier,
+            1: self.__standard_rate
         }
