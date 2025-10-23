@@ -4,10 +4,10 @@ class Biller():
         self.__books_series = books_series_configuration.books()
         self.__base_amount_per_book = biller_configuration.base_amount_per_book()
         self.__standard_rate = biller_configuration.standard_rate()
-        self.__two_books_discount_multiplier = biller_configuration.two_books_discount_multiplier()
-        self.__three_books_discount_multiplier = biller_configuration.three_books_discount_multiplier()
-        self.__four_books_discount_multiplier = biller_configuration.four_books_discount_multiplier()
-        self.__five_books_discount_multiplier = biller_configuration.five_books_discount_multiplier()
+        self.__small_discount_multiplier = biller_configuration.two_books_discount_multiplier()
+        self.__medium_discount_multiplier = biller_configuration.three_books_discount_multiplier()
+        self.__large_discount_multiplier = biller_configuration.four_books_discount_multiplier()
+        self.__complete_series_discount_multiplier = biller_configuration.five_books_discount_multiplier()
 
 
     def bill(self):
@@ -35,10 +35,10 @@ class Biller():
 
         rates = {
         self.__standard_rate: 0,
-        self.__two_books_discount_multiplier: 0,
-        self.__three_books_discount_multiplier: 0,
-        self.__four_books_discount_multiplier: 0,
-        self.__five_books_discount_multiplier: 0
+        self.__small_discount_multiplier: 0,
+        self.__medium_discount_multiplier: 0,
+        self.__large_discount_multiplier: 0,
+        self.__complete_series_discount_multiplier: 0
         }
 
         max_number_of_books = max(list(books_counts.values()))
@@ -60,9 +60,9 @@ class Biller():
 
     def __get_rates_per_number_of_books(self):
         return {
-            5: self.__five_books_discount_multiplier,
-            4: self.__four_books_discount_multiplier,
-            3: self.__three_books_discount_multiplier,
-            2: self.__two_books_discount_multiplier,
+            5: self.__complete_series_discount_multiplier,
+            4: self.__large_discount_multiplier,
+            3: self.__medium_discount_multiplier,
+            2: self.__small_discount_multiplier,
             1: self.__standard_rate
         }
