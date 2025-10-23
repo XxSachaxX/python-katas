@@ -1,7 +1,7 @@
 class Biller():
     def __init__(self, list_of_books, biller_configuration, books_series_configuration):
         self.list_of_books = list_of_books
-        self.__books_series = books_series_configuration.books()
+        self.books_series = books_series_configuration.books()
         self.__base_amount_per_book = biller_configuration.base_amount_per_book()
         self.__standard_rate = biller_configuration.standard_rate()
         self.__small_discount_multiplier = biller_configuration.two_books_discount_multiplier()
@@ -22,13 +22,10 @@ class Biller():
     def __get_books_counts(self):
         books_counts = {}
 
-        for book in self.__all_books():
+        for book in self.books_series:
             books_counts[book] = self.list_of_books.count(book)
 
         return books_counts
-
-    def __all_books(self):
-        return self.__books_series
 
     def __get_books_counts_by_discount_multiplier(self):
         books_counts = self.__get_books_counts()
@@ -59,7 +56,7 @@ class Biller():
         return rates
 
     def __get_rates_per_number_of_books(self):
-        nb_of_books = len(self.__books_series)
+        nb_of_books = len(self.books_series)
         rates_per_number_of_books = {}
 
         for i in range(nb_of_books + 1):
