@@ -162,6 +162,17 @@ def test_with_full_other_series():
 
     assert result == expected, f"The amount due should be {expected} but is {result}"
 
+def test_with_double_full_other_series():
+    biller = Biller([
+        tome_one,tome_two,tome_three,tome_four,tome_five,tome_six,tome_seven,tome_eight,tome_nine,tome_ten,tome_eleven,tome_twelve,tome_thirteen,
+        tome_one,tome_two,tome_three,tome_four,tome_five,tome_six,tome_seven,tome_eight,tome_nine,tome_ten,tome_eleven,tome_twelve,tome_thirteen
+    ],
+    default_biller_configuration, realm_of_the_elderlings_series_configuration)
+    result = biller.bill()
+    expected = 156
+
+    assert result == expected, f"The amount due should be {expected} but is {result}"
+
 # Test with other biller configuration
 
 black_friday_biller_configuration = BlackFridayBillerConfiguration()
