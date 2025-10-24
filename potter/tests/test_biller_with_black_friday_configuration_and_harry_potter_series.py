@@ -1,6 +1,6 @@
-from biller import Biller
-from biller_configurations.black_friday import BlackFridayBillerConfiguration
-from books_series_configurations.harry_potter import HarryPotterSeries
+from ..billing.biller import Biller
+from ..biller_configurations.black_friday import BlackFridayBillerConfiguration
+from ..books_series_configurations.harry_potter import HarryPotterSeries
 
 black_friday_biller_configuration = BlackFridayBillerConfiguration()
 happy_potter_series_configuration = HarryPotterSeries()
