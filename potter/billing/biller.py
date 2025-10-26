@@ -1,6 +1,6 @@
 class Biller():
-    def __init__(self, list_of_books, biller_configuration, books_series_configuration):
-        self.list_of_books = list_of_books
+    def __init__(self, customer_cart, biller_configuration, books_series_configuration):
+        self.customer_cart = customer_cart
         self.books_series = books_series_configuration.books()
         self.discounts = biller_configuration.discounts()
         self.__base_amount_per_book = biller_configuration.base_amount_per_book()
@@ -18,7 +18,7 @@ class Biller():
         books_counts = {}
 
         for book in self.books_series:
-            books_counts[book] = self.list_of_books.count(book)
+            books_counts[book] = self.customer_cart.count(book)
 
         return books_counts
 
