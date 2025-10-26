@@ -2,13 +2,8 @@ class Biller():
     def __init__(self, list_of_books, biller_configuration, books_series_configuration):
         self.list_of_books = list_of_books
         self.books_series = books_series_configuration.books()
+        self.discounts = biller_configuration.discounts()
         self.__base_amount_per_book = biller_configuration.base_amount_per_book()
-        self.__standard_rate = biller_configuration.standard_rate()
-        self.__small_discount_multiplier = biller_configuration.two_books_discount_multiplier()
-        self.__medium_discount_multiplier = biller_configuration.three_books_discount_multiplier()
-        self.__large_discount_multiplier = biller_configuration.four_books_discount_multiplier()
-        self.__complete_series_discount_multiplier = biller_configuration.five_books_discount_multiplier()
-
 
     def bill(self):
         books_counts_by_discount_multiplier = self.__get_books_counts_by_discount_multiplier()
@@ -30,13 +25,10 @@ class Biller():
     def __get_books_counts_by_discount_multiplier(self):
         books_counts = self.__get_books_counts()
 
-        rates = {
-        self.__standard_rate: 0,
-        self.__small_discount_multiplier: 0,
-        self.__medium_discount_multiplier: 0,
-        self.__large_discount_multiplier: 0,
-        self.__complete_series_discount_multiplier: 0
-        }
+        rates = {}
+        for rate_name, settings in self.discounts.items():
+            rate = settings["discount_multiplier"]
+            rates[rate] = 0
 
         max_number_of_books = max(list(books_counts.values()))
 
@@ -50,25 +42,31 @@ class Biller():
 
 
             rates_per_nb_of_books = self.__get_rates_per_number_of_books()
-            rate = rates_per_nb_of_books[number_of_books_for_round]
+            max_number_of_books_required = self.__get_max_required_nb_of_books()
+
+            if number_of_books_for_round >= max_number_of_books_required:
+                rate = rates_per_nb_of_books[max_number_of_books_required]
+            else:
+                rate = rates_per_nb_of_books[number_of_books_for_round]
             rates[rate] += number_of_books_for_round
 
         return rates
 
+    def __get_max_required_nb_of_books(self):
+        max = 0
+        for rate_name, settings in self.discounts.items():
+            if settings["nb_of_books_required"] > max:
+                max = settings["nb_of_books_required"]
+
+        return max
+
+
     def __get_rates_per_number_of_books(self):
-        nb_of_books = len(self.books_series)
         rates_per_number_of_books = {}
 
-        for i in range(nb_of_books + 1):
-            if i == 2:
-                rates_per_number_of_books[i] = self.__small_discount_multiplier
-            elif i == 3:
-                rates_per_number_of_books[i] = self.__medium_discount_multiplier
-            elif i == 4:
-                rates_per_number_of_books[i] = self.__large_discount_multiplier
-            elif i >= 5:
-                rates_per_number_of_books[i] = self.__complete_series_discount_multiplier
-            else:
-                rates_per_number_of_books[i] = self.__standard_rate
+        for rate_name, settings in self.discounts.items():
+            nb_of_books_required = settings["nb_of_books_required"]
+            rate = settings["discount_multiplier"]
+            rates_per_number_of_books[nb_of_books_required] = rate
 
         return rates_per_number_of_books
