@@ -1,6 +1,6 @@
-from ..billing.biller import Biller
-from ..biller_configurations.default import DefaultBillerConfiguration
-from ..books_series_configurations.harry_potter import HarryPotterSeries
+from potter.billing.biller import Biller
+from potter.biller_configurations.default import DefaultBillerConfiguration
+from potter.books_series_configurations.harry_potter import HarryPotterSeries
 
 default_biller_configuration = DefaultBillerConfiguration()
 happy_potter_series_configuration = HarryPotterSeries()

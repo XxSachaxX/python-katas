@@ -1,6 +1,6 @@
-from ..billing.biller import Biller
-from ..books_series_configurations.realm_of_the_elderlings import RealmOfTheElderlingSeries
-from ..biller_configurations.default import DefaultBillerConfiguration
+from potter.billing.biller import Biller
+from potter.books_series_configurations.realm_of_the_elderlings import RealmOfTheElderlingSeries
+from potter.biller_configurations.default import DefaultBillerConfiguration
 
 realm_of_the_elderlings_series_configuration = RealmOfTheElderlingSeries()
 default_biller_configuration = DefaultBillerConfiguration()
