@@ -23,10 +23,10 @@ class Biller():
         return books_counts
 
     def __get_books_counts_by_discount_multiplier(self):
-        rates = {}
+        books_counts_by_discount_multiplier = {}
         for _, settings in self.discounts.items():
             rate = settings["discount_multiplier"]
-            rates[rate] = 0
+            books_counts_by_discount_multiplier[rate] = 0
 
         books_counts = self.__get_books_counts()
         max_number_of_books = max(list(books_counts.values()))
@@ -48,9 +48,9 @@ class Biller():
             else:
                 rate = rates_per_nb_of_books[number_of_books_for_round]
 
-            rates[rate] += number_of_books_for_round
+            books_counts_by_discount_multiplier[rate] += number_of_books_for_round
 
-        return rates
+        return books_counts_by_discount_multiplier
 
     def __get_max_required_nb_of_books(self):
         max = 0
