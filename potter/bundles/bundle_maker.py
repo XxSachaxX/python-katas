@@ -1,17 +1,23 @@
 def get_bundles(inventory):
-    unique_books = []
-    duplicates = []
     bundles = []
+    books_counts = {}
 
     for book in inventory:
-        if book not in unique_books:
-            unique_books.append(book)
+        if book not in books_counts.keys():
+            books_counts[book] = 1
         else:
-            duplicates.append(book)
+           books_counts[book] += 1
 
-    bundles.append(unique_books)
+    max_number_of_books = max(list(books_counts.values()))
 
-    for duplicate in duplicates:
-        bundles.append([duplicate])
+    for i in range(max_number_of_books):
+        bundle = []
+
+        for book, count in books_counts.items():
+            if count > 0 and book not in bundle:
+                bundle.append(book)
+                books_counts[book] -= 1
+
+        bundles.append(bundle)
 
     return bundles
