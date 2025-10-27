@@ -10,7 +10,7 @@ class BundleMaker():
             bundles_for_series = self.__get_bundles_for_series(name)
 
             for bundle in bundles_for_series:
-                bundles.append(bundle)
+                bundles.append({"series_name": name, "content": bundle})
 
         return bundles
 

@@ -13,12 +13,13 @@ def test_with_a_single_book():
 
         }
     }
-    expected = [["Harry Potter and the Sorcerer's Stone"]]
+
+    expected = [{"series_name": "Harry Potter", "content": ["Harry Potter and the Sorcerer's Stone"]}]
 
     bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
 
-    assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
+    assert_same_dicts(result, expected), f"Expected: {expected}, Got: {result}"
 
 def test_with_two_books():
     inventory = {
@@ -34,11 +35,11 @@ def test_with_two_books():
         }
     }
 
-    expected = [["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"]]
+    expected = [{"series_name": "Harry Potter", "content": ["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"]}]
     bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
 
-    assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
+    assert_same_dicts(result, expected), f"Expected: {expected}, Got: {result}"
 
 def test_with_two_different_books_and_an_identical_one():
     inventory = {
@@ -54,11 +55,14 @@ def test_with_two_different_books_and_an_identical_one():
         }
     }
 
-    expected = [["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"], ["Harry Potter and the Sorcerer's Stone"]]
+    expected = [
+        {"series_name": "Harry Potter","content": ["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"]},
+        {"series_name": "Harry Potter","content": ["Harry Potter and the Sorcerer's Stone"]}
+    ]
     bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
 
-    assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
+    assert_same_dicts(result, expected), f"Expected: {expected}, Got: {result}"
 
 def test_with_three_identical_books():
     inventory = {
@@ -74,11 +78,15 @@ def test_with_three_identical_books():
         }
     }
 
-    expected = [["Harry Potter and the Sorcerer's Stone"],["Harry Potter and the Sorcerer's Stone"],["Harry Potter and the Sorcerer's Stone"]]
+    expected = [
+        {"series_name": "Harry Potter", "content": ["Harry Potter and the Sorcerer's Stone"]},
+        {"series_name": "Harry Potter", "content": ["Harry Potter and the Sorcerer's Stone"]},
+        {"series_name": "Harry Potter", "content": ["Harry Potter and the Sorcerer's Stone"]}
+    ]
     bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
 
-    assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
+    assert_same_dicts(result, expected), f"Expected: {expected}, Got: {result}"
 
 def test_with_three_other_identical_books():
     inventory = {
@@ -94,11 +102,16 @@ def test_with_three_other_identical_books():
         }
     }
 
-    expected = [["Harry Potter and the Chamber of Secrets"],["Harry Potter and the Chamber of Secrets"],["Harry Potter and the Chamber of Secrets"]]
+    expected = [
+        {"series_name": "Harry Potter", "content": ["Harry Potter and the Chamber of Secrets"]},
+        {"series_name": "Harry Potter", "content": ["Harry Potter and the Chamber of Secrets"]},
+        {"series_name": "Harry Potter", "content": ["Harry Potter and the Chamber of Secrets"]}
+    ]
+
     bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
 
-    assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
+    assert_same_dicts(result, expected), f"Expected: {expected}, Got: {result}"
 
 def test_with_two_sets_of_unique_books():
     inventory = {
@@ -114,11 +127,14 @@ def test_with_two_sets_of_unique_books():
         }
     }
 
-    expected = [["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"], ["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"]]
+    expected = [
+        {"series_name": "Harry Potter", "content": ["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"]},
+        {"series_name": "Harry Potter", "content": ["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"]},
+    ]
 
     bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
-    assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
+    assert_same_dicts(result, expected), f"Expected: {expected}, Got: {result}"
 
 def test_with_two_sets_of_unique_books_and_a_book_left_alone():
     inventory = {
@@ -134,11 +150,15 @@ def test_with_two_sets_of_unique_books_and_a_book_left_alone():
         }
     }
 
-    expected = [["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"], ["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"],["Harry Potter and the Sorcerer's Stone"]]
+    expected = [
+        {"series_name": "Harry Potter", "content": ["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"]},
+        {"series_name": "Harry Potter", "content": ["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"]},
+        {"series_name": "Harry Potter", "content": ["Harry Potter and the Sorcerer's Stone"]},
+    ]
 
     bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
-    assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
+    assert_same_dicts(result, expected), f"Expected: {expected}, Got: {result}"
 
 def test_with_two_sets_of_unique_books_with_different_length():
     inventory = {
@@ -154,11 +174,15 @@ def test_with_two_sets_of_unique_books_with_different_length():
         }
     }
 
-    expected = [["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets", "Harry Potter and the Prisonner of Azkaban", "Harry Potter and the Goblet of fire", "Harry Potter and the Order of the Phoenix"], ["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"],["Harry Potter and the Sorcerer's Stone"]]
+    expected = [
+        {"series_name": "Harry Potter", "content": ["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets", "Harry Potter and the Prisonner of Azkaban", "Harry Potter and the Goblet of fire", "Harry Potter and the Order of the Phoenix"]},
+        {"series_name": "Harry Potter", "content": ["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"]},
+        {"series_name": "Harry Potter", "content": ["Harry Potter and the Sorcerer's Stone"]},
+    ]
 
     bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
-    assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
+    assert_same_dicts(result, expected), f"Expected: {expected}, Got: {result}"
 
 def test_with_one_book_from_two_different_series():
     inventory = {
@@ -190,9 +214,13 @@ def test_with_one_book_from_two_different_series():
     }
 
     expected = [["Harry Potter and the Sorcerer's Stone"],["Assassin's Apprentice"]]
+    expected = [
+        {"series_name": "Harry Potter","content": ["Harry Potter and the Sorcerer's Stone"]},
+        {"series_name": "Realm of the elderlings","content": ["Assassin's Apprentice"]}
+    ]
     bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
-    assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
+    assert_same_dicts(result, expected), f"Expected: {expected}, Got: {result}"
 
 def test_with_two_different_complete_series():
     inventory = {
@@ -243,6 +271,16 @@ def test_with_two_different_complete_series():
         "Assassin's Fate"
     ]
     expected = [harry_potter_full_bundle,realm_of_the_underlings_full_bundle]
+    expected = [
+        {"series_name": "Harry Potter","content": harry_potter_full_bundle},
+        {"series_name": "Realm of the elderlings","content": realm_of_the_underlings_full_bundle}
+    ]
     bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
-    assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
+    assert_same_dicts(result, expected), f"Expected: {expected}, Got: {result}"
+
+
+def assert_same_dicts(list1, list2):
+    assert len(list1) == len(list2)
+    for item in list1:
+        assert item in list2
