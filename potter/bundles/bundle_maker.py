@@ -4,13 +4,7 @@ class BundleMaker():
 
     def get_bundles(self):
         bundles = []
-        books_counts = {}
-
-        for book in self.inventory:
-            if book not in books_counts.keys():
-                books_counts[book] = 1
-            else:
-                books_counts[book] += 1
+        books_counts = self.__get_books_counts()
 
         max_number_of_books = max(list(books_counts.values()))
 
@@ -25,3 +19,14 @@ class BundleMaker():
             bundles.append(bundle)
 
         return bundles
+
+    def __get_books_counts(self):
+        books_counts = {}
+
+        for book in self.inventory:
+            if book not in books_counts.keys():
+                books_counts[book] = 1
+            else:
+                books_counts[book] += 1
+
+        return books_counts
