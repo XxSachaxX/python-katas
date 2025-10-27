@@ -1,23 +1,27 @@
-def get_bundles(inventory):
-    bundles = []
-    books_counts = {}
+class BundleMaker():
+    def __init__(self, inventory):
+        self.inventory = inventory
 
-    for book in inventory:
-        if book not in books_counts.keys():
-            books_counts[book] = 1
-        else:
-           books_counts[book] += 1
+    def get_bundles(self):
+        bundles = []
+        books_counts = {}
 
-    max_number_of_books = max(list(books_counts.values()))
+        for book in self.inventory:
+            if book not in books_counts.keys():
+                books_counts[book] = 1
+            else:
+                books_counts[book] += 1
 
-    for i in range(max_number_of_books):
-        bundle = []
+        max_number_of_books = max(list(books_counts.values()))
 
-        for book, count in books_counts.items():
-            if count > 0 and book not in bundle:
-                bundle.append(book)
-                books_counts[book] -= 1
+        for i in range(max_number_of_books):
+            bundle = []
 
-        bundles.append(bundle)
+            for book, count in books_counts.items():
+                if count > 0 and book not in bundle:
+                    bundle.append(book)
+                    books_counts[book] -= 1
 
-    return bundles
+            bundles.append(bundle)
+
+        return bundles
