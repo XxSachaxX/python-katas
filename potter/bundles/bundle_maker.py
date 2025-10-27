@@ -5,7 +5,6 @@ class BundleMaker():
     def get_bundles(self):
         bundles = []
         books_counts = self.__get_books_counts()
-
         max_number_of_books = max(list(books_counts.values()))
 
         for i in range(max_number_of_books):
