@@ -1,4 +1,4 @@
-class RealmOfTheElderlingSeries():
+class RealmOfTheElderlingsSeries():
     def books(self):
         return [
           "Assassin's Apprentice",

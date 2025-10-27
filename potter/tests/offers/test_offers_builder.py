@@ -23,7 +23,7 @@ def test_inventory_with_two_full_series():
             "Harry Potter and the Deathly Hallows": 1
 
         },
-        "Realm of the elderlings": {
+        "Realm Of The Elderlings": {
             "Assassin's Apprentice": 1,
             "Royal Assassin": 1,
             "Assassin's Quest": 1,

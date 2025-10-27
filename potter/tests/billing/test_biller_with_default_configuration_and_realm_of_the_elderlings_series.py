@@ -1,8 +1,8 @@
 from potter.billing.biller import Biller
-from potter.books_series_configurations.realm_of_the_elderlings import RealmOfTheElderlingSeries
+from potter.books_series_configurations.realm_of_the_elderlings import RealmOfTheElderlingsSeries
 from potter.biller_configurations.default import DefaultBillerConfiguration
 
-realm_of_the_elderlings_series_configuration = RealmOfTheElderlingSeries()
+realm_of_the_elderlings_series_configuration = RealmOfTheElderlingsSeries()
 default_biller_configuration = DefaultBillerConfiguration()
 tome_one, tome_two, tome_three, tome_four, tome_five, tome_six, tome_seven, tome_eight, tome_nine, tome_ten, tome_eleven, tome_twelve, tome_thirteen = realm_of_the_elderlings_series_configuration.books()
 def test_with_a_single_book_from_other_series():
