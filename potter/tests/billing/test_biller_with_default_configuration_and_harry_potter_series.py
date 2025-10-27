@@ -4,7 +4,7 @@ from potter.books_series_configurations.harry_potter import HarryPotterSeries
 
 default_biller_configuration = DefaultBillerConfiguration()
 happy_potter_series_configuration = HarryPotterSeries()
-first_book, second_book, third_book, fourth_book, fifth_book = happy_potter_series_configuration.books()
+first_book, second_book, third_book, fourth_book, fifth_book, sixth_book, seventh_book = happy_potter_series_configuration.books()
 
 def test_with_a_single_book():
     biller = Biller([first_book], default_biller_configuration, happy_potter_series_configuration)
