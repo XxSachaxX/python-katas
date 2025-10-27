@@ -1,10 +1,8 @@
 from potter.bundles.bundle_maker import BundleMaker
 
-# Tests with a single series
-chosen_series = "Harry Potter"
 def test_with_a_single_book():
     inventory = {
-        chosen_series: {
+        "Harry Potter": {
             "Harry Potter and the Sorcerer's Stone": 1,
             "Harry Potter and the Chamber of Secrets": 0,
             "Harry Potter and the Prisonner of Azkaban": 0,
@@ -17,14 +15,14 @@ def test_with_a_single_book():
     }
     expected = [["Harry Potter and the Sorcerer's Stone"]]
 
-    bundle_maker = BundleMaker(inventory, chosen_series)
+    bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
 
     assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
 
 def test_with_two_books():
     inventory = {
-        chosen_series: {
+        "Harry Potter": {
             "Harry Potter and the Sorcerer's Stone": 1,
             "Harry Potter and the Chamber of Secrets": 1,
             "Harry Potter and the Prisonner of Azkaban": 0,
@@ -37,14 +35,14 @@ def test_with_two_books():
     }
 
     expected = [["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"]]
-    bundle_maker = BundleMaker(inventory, chosen_series)
+    bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
 
     assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
 
 def test_with_two_different_books_and_an_identical_one():
     inventory = {
-        chosen_series: {
+        "Harry Potter": {
             "Harry Potter and the Sorcerer's Stone": 2,
             "Harry Potter and the Chamber of Secrets": 1,
             "Harry Potter and the Prisonner of Azkaban": 0,
@@ -57,14 +55,14 @@ def test_with_two_different_books_and_an_identical_one():
     }
 
     expected = [["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"], ["Harry Potter and the Sorcerer's Stone"]]
-    bundle_maker = BundleMaker(inventory, chosen_series)
+    bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
 
     assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
 
 def test_with_three_identical_books():
     inventory = {
-        chosen_series: {
+        "Harry Potter": {
             "Harry Potter and the Sorcerer's Stone": 3,
             "Harry Potter and the Chamber of Secrets": 0,
             "Harry Potter and the Prisonner of Azkaban": 0,
@@ -77,14 +75,14 @@ def test_with_three_identical_books():
     }
 
     expected = [["Harry Potter and the Sorcerer's Stone"],["Harry Potter and the Sorcerer's Stone"],["Harry Potter and the Sorcerer's Stone"]]
-    bundle_maker = BundleMaker(inventory, chosen_series)
+    bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
 
     assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
 
 def test_with_three_other_identical_books():
     inventory = {
-        chosen_series: {
+        "Harry Potter": {
             "Harry Potter and the Sorcerer's Stone": 0,
             "Harry Potter and the Chamber of Secrets": 3,
             "Harry Potter and the Prisonner of Azkaban": 0,
@@ -97,14 +95,14 @@ def test_with_three_other_identical_books():
     }
 
     expected = [["Harry Potter and the Chamber of Secrets"],["Harry Potter and the Chamber of Secrets"],["Harry Potter and the Chamber of Secrets"]]
-    bundle_maker = BundleMaker(inventory, chosen_series)
+    bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
 
     assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
 
 def test_with_two_sets_of_unique_books():
     inventory = {
-        chosen_series: {
+        "Harry Potter": {
             "Harry Potter and the Sorcerer's Stone": 2,
             "Harry Potter and the Chamber of Secrets": 2,
             "Harry Potter and the Prisonner of Azkaban": 0,
@@ -118,13 +116,13 @@ def test_with_two_sets_of_unique_books():
 
     expected = [["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"], ["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"]]
 
-    bundle_maker = BundleMaker(inventory, chosen_series)
+    bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
     assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
 
 def test_with_two_sets_of_unique_books_and_a_book_left_alone():
     inventory = {
-        chosen_series: {
+        "Harry Potter": {
             "Harry Potter and the Sorcerer's Stone": 3,
             "Harry Potter and the Chamber of Secrets": 2,
             "Harry Potter and the Prisonner of Azkaban": 0,
@@ -138,13 +136,13 @@ def test_with_two_sets_of_unique_books_and_a_book_left_alone():
 
     expected = [["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"], ["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"],["Harry Potter and the Sorcerer's Stone"]]
 
-    bundle_maker = BundleMaker(inventory, chosen_series)
+    bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
     assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
 
 def test_with_two_sets_of_unique_books_with_different_length():
     inventory = {
-        chosen_series: {
+        "Harry Potter": {
             "Harry Potter and the Sorcerer's Stone": 3,
             "Harry Potter and the Chamber of Secrets": 2,
             "Harry Potter and the Prisonner of Azkaban": 1,
@@ -158,6 +156,40 @@ def test_with_two_sets_of_unique_books_with_different_length():
 
     expected = [["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets", "Harry Potter and the Prisonner of Azkaban", "Harry Potter and the Goblet of fire", "Harry Potter and the Order of the Phoenix"], ["Harry Potter and the Sorcerer's Stone", "Harry Potter and the Chamber of Secrets"],["Harry Potter and the Sorcerer's Stone"]]
 
-    bundle_maker = BundleMaker(inventory, chosen_series)
+    bundle_maker = BundleMaker(inventory)
+    result = bundle_maker.get_bundles()
+    assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
+
+def test_with_one_book_from_two_different_series():
+    inventory = {
+        "Harry Potter": {
+            "Harry Potter and the Sorcerer's Stone": 1,
+            "Harry Potter and the Chamber of Secrets": 0,
+            "Harry Potter and the Prisonner of Azkaban": 0,
+            "Harry Potter and the Goblet of fire": 0,
+            "Harry Potter and the Order of the Phoenix": 0,
+            "Harry Potter and the Half-blood Prince": 0,
+            "Harry Potter and the Deathly Hallows": 0
+
+        },
+        "Realm of the elderlings": {
+            "Assassin's Apprentice": 1,
+            "Royal Assassin": 0,
+            "Assassin's Quest": 0,
+            "Fool's Errand": 0,
+            "Golden Fool": 0,
+            "Fool's Fate": 0,
+            "The Rain Wilds Chronicles: Dragon Keeper": 0,
+            "Dragon Haven": 0,
+            "City of Dragons": 0,
+            "Blood of Dragons": 0,
+            "Fitz and the Fool Trilogy: Fool's Assassin": 0,
+            "Fool's Quest": 0,
+            "Assassin's Fate": 0
+        }
+    }
+
+    expected = [["Harry Potter and the Sorcerer's Stone"],["Assassin's Apprentice"]]
+    bundle_maker = BundleMaker(inventory)
     result = bundle_maker.get_bundles()
     assert sorted(result) == sorted(expected), f"Expected: {expected}, Got: {result}"
