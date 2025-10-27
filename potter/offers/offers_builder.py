@@ -1,7 +1,5 @@
-from potter.books_series_configurations.harry_potter import HarryPotterSeries
 from potter.bundles.bundle_maker import BundleMaker
 from potter.billing.biller import Biller
-from potter.books_series_configurations.realm_of_the_elderlings import RealmOfTheElderlingsSeries
 
 class OffersBuilder():
     def __init__(self, inventory, biller_configuration):
@@ -15,12 +13,9 @@ class OffersBuilder():
         for bundle in bundles:
             series_name = bundle["series_name"]
             content = bundle["content"]
-
-
             books_config = self.__get_books_series_configuration(series_name)
-
-
             price = Biller(content, self.biller_configuration, books_config).bill()
+
             offers.append({"price": price, "books": content})
 
         return offers
