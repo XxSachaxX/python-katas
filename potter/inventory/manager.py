@@ -9,6 +9,9 @@ class Manager():
                 if series_name not in self.inventory:
                     continue
 
-                self.inventory[series_name][book] -= count
+                if self.inventory[series_name][book] - count > 0:
+                    self.inventory[series_name][book] -= count
+                else:
+                   self.inventory[series_name][book] = 0
 
         return
