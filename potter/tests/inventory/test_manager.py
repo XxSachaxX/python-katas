@@ -1,5 +1,77 @@
 from potter.inventory.manager import Manager
 
+def test_inventory_manager_does_nothing_when_passed_a_series_not_in_inventory():
+    books_to_remove = {
+        "A series that does not exist": {
+            "A book that does not exist": 1
+        }
+    }
+
+    inventory = {
+        "Harry Potter": {
+            "Harry Potter and the Sorcerer's Stone": 1,
+            "Harry Potter and the Chamber of Secrets": 1,
+            "Harry Potter and the Prisonner of Azkaban": 1,
+            "Harry Potter and the Goblet of fire": 1,
+            "Harry Potter and the Order of the Phoenix": 1,
+            "Harry Potter and the Half-blood Prince": 1,
+            "Harry Potter and the Deathly Hallows": 1
+        }
+    }
+
+    expected = {
+        "Harry Potter": {
+            "Harry Potter and the Sorcerer's Stone": 1,
+            "Harry Potter and the Chamber of Secrets": 1,
+            "Harry Potter and the Prisonner of Azkaban": 1,
+            "Harry Potter and the Goblet of fire": 1,
+            "Harry Potter and the Order of the Phoenix": 1,
+            "Harry Potter and the Half-blood Prince": 1,
+            "Harry Potter and the Deathly Hallows": 1
+        }
+    }
+
+    manager = Manager(inventory)
+    manager.remove_books(books_to_remove)
+
+    assert inventory == expected, f"Expected: {expected}, Got: {inventory}"
+
+    def test_inventory_manager_does_nothing_when_passed_a_book_for_existing_series_that_does_not_exist():
+        books_to_remove = {
+            "Harry Potter": {
+                "A book that does not exist": 1
+            }
+        }
+
+        inventory = {
+            "Harry Potter": {
+                "Harry Potter and the Sorcerer's Stone": 1,
+                "Harry Potter and the Chamber of Secrets": 1,
+                "Harry Potter and the Prisonner of Azkaban": 1,
+                "Harry Potter and the Goblet of fire": 1,
+                "Harry Potter and the Order of the Phoenix": 1,
+                "Harry Potter and the Half-blood Prince": 1,
+                "Harry Potter and the Deathly Hallows": 1
+            }
+        }
+
+        expected = {
+            "Harry Potter": {
+                "Harry Potter and the Sorcerer's Stone": 1,
+                "Harry Potter and the Chamber of Secrets": 1,
+                "Harry Potter and the Prisonner of Azkaban": 1,
+                "Harry Potter and the Goblet of fire": 1,
+                "Harry Potter and the Order of the Phoenix": 1,
+                "Harry Potter and the Half-blood Prince": 1,
+                "Harry Potter and the Deathly Hallows": 1
+            }
+        }
+
+        manager = Manager(inventory)
+        manager.remove_books(books_to_remove)
+
+        assert inventory == expected, f"Expected: {expected}, Got: {inventory}"
+
 def test_inventory_manager_can_remove_list_of_books():
     books_to_remove = {
         "Harry Potter": {
