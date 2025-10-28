@@ -1,5 +1,8 @@
 from potter.bundles.bundle_maker import BundleMaker
 from potter.billing.biller import Biller
+from potter.books_series_configurations.harry_potter import HarryPotterSeries
+from potter.books_series_configurations.realm_of_the_elderlings import RealmOfTheElderlingsSeries
+
 
 class OffersBuilder():
     def __init__(self, inventory, biller_configuration):
