@@ -1,7 +1,9 @@
 from potter.bundles.bundle_maker import BundleMaker
 from potter.billing.biller import Biller
-from potter.books_series_configurations.harry_potter import HarryPotterSeries
-from potter.books_series_configurations.realm_of_the_elderlings import RealmOfTheElderlingsSeries
+
+# imports required for __get_books_series_configuration to work
+from potter.books_series_configurations.harry_potter import HarryPotterSeries # noqa: F401
+from potter.books_series_configurations.realm_of_the_elderlings import RealmOfTheElderlingsSeries # noqa: F401
 
 
 class OffersBuilder():
