@@ -1,5 +1,4 @@
 class Manager():
-
     def __init__(self, inventory):
         self.inventory = inventory
 
@@ -13,7 +12,7 @@ class Manager():
                     self.inventory[series_name][book] = 0
                     continue
 
-                self.inventory[series_name][book] = 0
+                self.inventory[series_name][book] -= count
 
         return
 
