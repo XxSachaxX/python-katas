@@ -153,3 +153,48 @@ def test_number_of_books_in_inventory_cannot_be_negative():
     manager.remove_books(books_to_remove)
 
     assert inventory == expected, f"Expected: {expected}, Got: {inventory}"
+
+
+
+def test_adding_book_not_existing_in_inventory():
+    book_to_add = {
+        "Harry Potter": {
+            "Harry Potter and the Sorcerer's Stone": 1,
+        }
+    }
+
+    inventory = {}
+    expected = {
+        "Harry Potter": {
+            "Harry Potter and the Sorcerer's Stone": 1
+        }
+    }
+
+    manager = Manager(inventory)
+    manager.add_books(book_to_add)
+
+    assert inventory == expected, f"Expected: {expected}, Got: {inventory}"
+
+def test_adding_book_existing_in_inventory():
+    book_to_add = {
+        "Harry Potter": {
+            "Harry Potter and the Sorcerer's Stone": 1,
+        }
+    }
+
+    inventory = {
+        "Harry Potter": {
+            "Harry Potter and the Sorcerer's Stone": 1,
+        }
+    }
+
+    expected = {
+        "Harry Potter": {
+            "Harry Potter and the Sorcerer's Stone": 2
+        }
+    }
+
+    manager = Manager(inventory)
+    manager.add_books(book_to_add)
+
+    assert inventory == expected, f"Expected: {expected}, Got: {inventory}"

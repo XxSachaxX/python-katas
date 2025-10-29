@@ -16,3 +16,16 @@ class Manager():
                 self.inventory[series_name][book] = 0
 
         return
+
+    def add_books(self, books_to_add):
+        for series_name, books in books_to_add.items():
+            for book, count in books.items():
+                if series_name not in self.inventory:
+                    self.inventory[series_name] = books
+                    continue
+
+                if self.inventory[series_name][book] > 0:
+                    self.inventory[series_name][book] += 1
+                    continue
+
+        return
