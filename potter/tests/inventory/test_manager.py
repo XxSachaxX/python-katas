@@ -198,3 +198,27 @@ def test_adding_book_existing_in_inventory():
     manager.add_books(book_to_add)
 
     assert inventory == expected, f"Expected: {expected}, Got: {inventory}"
+
+def test_adding_multiple_copies_of_a_book_existing_in_inventory():
+    book_to_add = {
+        "Harry Potter": {
+            "Harry Potter and the Sorcerer's Stone": 20,
+        }
+    }
+
+    inventory = {
+        "Harry Potter": {
+            "Harry Potter and the Sorcerer's Stone": 1,
+        }
+    }
+
+    expected = {
+        "Harry Potter": {
+            "Harry Potter and the Sorcerer's Stone": 21
+        }
+    }
+
+    manager = Manager(inventory)
+    manager.add_books(book_to_add)
+
+    assert inventory == expected, f"Expected: {expected}, Got: {inventory}"

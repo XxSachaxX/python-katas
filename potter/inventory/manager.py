@@ -25,7 +25,7 @@ class Manager():
                     continue
 
                 if self.inventory[series_name][book] > 0:
-                    self.inventory[series_name][book] += 1
+                    self.inventory[series_name][book] += count
                     continue
 
         return
