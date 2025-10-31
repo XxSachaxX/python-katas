@@ -14,17 +14,8 @@ class Register():
     def cash_in(self, customer_cart):
         self.__remove_books(customer_cart)
 
-        total = 0
-        for series_name, books_with_count in customer_cart.items():
-            books_to_bill = []
-
-            for book, count in books_with_count.items():
-                for i in range(count):
-                    books_to_bill.append(book)
-
-            total += self.__bill(series_name, books_to_bill)
-
-        self.cash_float -= total
+        total_due = self.__compute_total_due(customer_cart)
+        self.cash_float -= total_due
 
     def __get_books_series_configuration(self, series_name):
         config_name = series_name.title().replace(" ", "") + "Series"
@@ -37,3 +28,16 @@ class Register():
 
     def __bill(self, series_name, books_to_bill):
         return Biller(books_to_bill, self.biller_configuration, self.__get_books_series_configuration(series_name)).bill()
+
+    def __compute_total_due(self, customer_cart):
+        total = 0
+        for series_name, books_with_count in customer_cart.items():
+            books_to_bill = []
+
+            for book, count in books_with_count.items():
+                for i in range(count):
+                    books_to_bill.append(book)
+
+            total += self.__bill(series_name, books_to_bill)
+
+        return total
