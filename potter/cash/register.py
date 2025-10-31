@@ -12,7 +12,7 @@ class Register():
         self.biller_configuration = biller_configuration
 
     def cash_in(self, customer_cart):
-        Manager(self.inventory).remove_books(customer_cart)
+        self.__remove_books(customer_cart)
 
         total = 0
         for series_name, books_with_count in customer_cart.items():
@@ -22,7 +22,7 @@ class Register():
                 for i in range(count):
                     books_to_bill.append(book)
 
-            total += Biller(books_to_bill, self.biller_configuration, self.__get_books_series_configuration(series_name)).bill()
+            total += self.__bill(series_name, books_to_bill)
 
         self.cash_float -= total
 
@@ -31,3 +31,9 @@ class Register():
         cls = globals()[config_name]
 
         return cls()
+
+    def __remove_books(self, customer_cart):
+        Manager(self.inventory).remove_books(customer_cart)
+
+    def __bill(self, series_name, books_to_bill):
+        return Biller(books_to_bill, self.biller_configuration, self.__get_books_series_configuration(series_name)).bill()
